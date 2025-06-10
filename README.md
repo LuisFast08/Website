@@ -29,3 +29,29 @@ Diese Website wurde für eine christliche Missionsgesellschaft entwickelt, die s
   Zugangsdaten und Passwörter wurden im Code durch Platzhalter ersetzt.
 - **Demo:**  
   Die Website ist online erreichbar unter: [trucker-missions.de](https://trucker-missions.de)
+- **Status:**
+  Die Website ist in der Entwicklung.
+
+  ## Vorschau
+
+**Startseite**
+![Startseite](screenshots/startseite.png)
+
+**Login-Seite**
+![Login](screenshots/login.png)
+
+**Kontaktformular**
+![Kontakt](screenshots/kontakt.png)
+
+**Videos-Seite**
+![Videos](screenshots/videos.png)
+
+**Adminbereich – Übersicht**
+![Adminbereich Übersicht](screenshots/admin1.png)
+
+**Adminbereich – Videos verwalten**
+![Adminbereich Videos](screenshots/admin2.png)
+
+**Adminbereich – Kontakt Daten**
+![Adminbereich Beispiel 3](screenshots/admin3.png)
+

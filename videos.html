@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Predigten  Trucker für Christus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+
+  <header class="bg-gray-800 p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">  Predigten</h1>
+    <a href="index.html" class="text-blue-400 hover:underline">? Zur�ck zur Startseite</a>
+  </header>
+
+  <main class="p-6 max-w-5xl mx-auto">
+    <!-- Filter -->
+    <div class="mb-8">
+      <label for="languageFilter" class="block mb-2 text-lg">Sprache ausw�hlen:</label>
+      <select id="languageFilter" class="p-3 rounded bg-gray-700 text-white w-full sm:w-64">
+        <option value="alle">Alle Sprachen</option>
+        <option value="de">Deutsch</option>
+        <option value="en">Englisch</option>
+        <option value="ru">Russisch</option>
+        <option value="pl">Polnisch</option>
+      </select>
+    </div>
+
+    <!-- Video Grid -->
+    <div id="videoContainer" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Videos werden hier durch JS eingef�gt -->
+    </div>
+  </main>
+
+  <footer class="text-center py-6 text-sm text-gray-400">
+    &copy; 2025 Trucker für Christus
+  </footer>
+
+  <script>
+    const container = document.getElementById("videoContainer");
+    const filter = document.getElementById("languageFilter");
+
+    async function loadVideos() {
+      try {
+        const response = await fetch('videos.php');
+        if (!response.ok) throw new Error('Fehler beim Laden der Videos');
+        return await response.json();
+      } catch (e) {
+        container.innerHTML = `<p class="text-red-500">Fehler beim Laden der Videos: ${e.message}</p>`;
+        return [];
+      }
+    }
+
+    async function renderVideos(lang) {
+      const videos = await loadVideos();
+      container.innerHTML = "";
+
+      const filtered = lang === "alle" ? videos : videos.filter(v => v.lang === lang);
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p class="text-gray-400">Keine Videos f�r die ausgew�hlte Sprache.</p>`;
+        return;
+      }
+
+      filtered.forEach(video => {
+        const card = document.createElement("div");
+        card.innerHTML = `
+          <div class="bg-gray-800 rounded-xl shadow-md overflow-hidden">
+            <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allowfullscreen></iframe>
+            <div class="p-4">
+              <h2 class="text-lg font-semibold">${video.title}</h2>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    filter.addEventListener("change", () => renderVideos(filter.value));
+    renderVideos("alle");
+  </script>
+
+</body>
+</html>
